@@ -55,7 +55,7 @@ class Author extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!prevState.sentDelete && this.state.sentDelete) {
-            fetch('http://127.0.0.1:10004/api/author/' + this.props.author.id, {method: 'DELETE'})
+            fetch('/api/author/' + this.props.author.id, {method: 'DELETE'})
                 .then(response => new Promise(
                     (resolve, reject) => response.ok ?
                         resolve(this.props.onAuthorDeleted(this.props.author.id)) :
@@ -68,7 +68,7 @@ class Author extends React.Component {
                 });
         }
         if (!prevState.sentPut && this.state.sentPut) {
-            fetch('http://127.0.0.1:10004/api/author/' + this.props.author.id, {
+            fetch('/api/author/' + this.props.author.id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'

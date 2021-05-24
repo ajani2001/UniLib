@@ -13,7 +13,7 @@ class AuthorList extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://127.0.0.1:10004/api/author/')
+        fetch('/api/author/')
             .then(response => response.ok ?
                 response.json() :
                 new Promise((resolve, reject) => reject(response.error()))

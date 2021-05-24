@@ -61,7 +61,7 @@ class AuthorCreate extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(!prevState.sent && this.state.sent) {
-            fetch('http://127.0.0.1:10004/api/author/', {
+            fetch('/api/author/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
