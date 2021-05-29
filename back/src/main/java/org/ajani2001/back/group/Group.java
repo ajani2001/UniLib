@@ -1,18 +1,17 @@
 package org.ajani2001.back.group;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import org.ajani2001.back.BasicEntry;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @AllArgsConstructor
 @Table("group_table")
-public class Group {
-
+public class Group implements BasicEntry {
     @Id
     private Long id;
     private String number;
     private Long faculty_id;
-
 }

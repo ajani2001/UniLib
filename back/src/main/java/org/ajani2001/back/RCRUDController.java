@@ -1,12 +1,11 @@
 package org.ajani2001.back;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
-public abstract class CRUDController<EntryClass extends BasicEntry> {
-    private final CrudRepository<EntryClass, Long> repository;
+public abstract class RCRUDController<EntryClass extends BasicEntry, EntryRepresentationClass> {
+    final RCRUDRepository <EntryClass, EntryRepresentationClass, Long> repository;
 
-    public CRUDController(CrudRepository<EntryClass, Long> repository) {
+    public RCRUDController(RCRUDRepository<EntryClass, EntryRepresentationClass, Long> repository) {
         this.repository = repository;
     }
 
@@ -16,13 +15,13 @@ public abstract class CRUDController<EntryClass extends BasicEntry> {
     }
 
     @GetMapping
-    Iterable<EntryClass> readAll() {
-        return repository.findAll();
+    Iterable<EntryRepresentationClass> readAll() {
+        return repository.getRepresentationAll();
     }
 
     @GetMapping("/{id}")
-    EntryClass readById(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(RuntimeException::new);
+    EntryRepresentationClass readById(@PathVariable Long id) {
+        return repository.getRepresentationById(id).orElseThrow(RuntimeException::new);
     }
 
     @PutMapping("/{id}")
