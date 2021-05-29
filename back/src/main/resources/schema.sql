@@ -130,8 +130,8 @@ CREATE TABLE IF NOT EXISTS property_compensation (
 
 CREATE TABLE IF NOT EXISTS ban (
     penalty_id BIGINT PRIMARY KEY REFERENCES penalty(id),
-    end_date DATE NOT NULL,
-    CHECK ( (SELECT date FROM penalty WHERE id = penalty_id) < end_date )
+    end_date DATE NOT NULL--,
+    --CHECK ( (SELECT date FROM penalty WHERE id = penalty_id) < end_date )
 );
 
 CREATE TABLE IF NOT EXISTS fine (

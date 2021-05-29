@@ -1,34 +1,37 @@
-import org.springframework.beans.factory.annotation.Autowired;
+package org.ajani2001.back;
+
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/group")
-public class CRUDController {
+public abstract class CRUDController<T extends BasicEntry> {
 
-    @Autowired
-    private GroupRepository repository;
+    private final CrudRepository<T, Long> repository;
+
+    CRUDController(CrudRepository<T, Long> repository) {
+        this.repository = repository;
+    }
 
     @PostMapping
-    Group create(@RequestBody Group newGroup) {
-        return repository.save(newGroup);
+    T create(@RequestBody T newEntry) {
+        return repository.save(newEntry);
     }
 
     @GetMapping
-    Iterable<GroupRepresentation> readAll() {
-        return repository.findAllRepresentation();
+    Iterable<T> readAll() {
+        return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    Group readById(@PathVariable Long id) {
+    T readById(@PathVariable Long id) {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     @PutMapping("/{id}")
-    Group updateById(@RequestBody Group group, @PathVariable Long id) {
-        if(!group.getId().equals(id))
+    T updateById(@RequestBody T entry, @PathVariable Long id) {
+        if(!entry.getId().equals(id))
             throw new RuntimeException();
 
-        return repository.save(group);
+        return repository.save(entry);
     }
 
     @DeleteMapping("/{id}")
