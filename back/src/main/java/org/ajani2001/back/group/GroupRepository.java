@@ -10,11 +10,13 @@ import java.util.Optional;
 @Repository
 public interface GroupRepository extends RCRUDRepository<Group, GroupRepresentation, Long> {
 
+    @Override
     @Query("SELECT group_table.id, group_table.number, faculty.name AS faculty " +
             "FROM group_table JOIN faculty " +
             "ON group_table.faculty_id = faculty.id")
     public Iterable<GroupRepresentation> getRepresentationAll();
 
+    @Override
     @Query("SELECT group_table.id, group_table.number, faculty.name AS faculty " +
             "FROM group_table JOIN faculty " +
             "ON group_table.faculty_id = faculty.id " +

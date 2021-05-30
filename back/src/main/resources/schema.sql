@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS property_compensation (
     new_book_id BIGINT NOT NULL REFERENCES book(id)
 );
 
-CREATE TABLE IF NOT EXISTS property_compensation (
+CREATE TABLE IF NOT EXISTS cost_compensation (
     penalty_id BIGINT PRIMARY KEY REFERENCES penalty(id),
     book_id BIGINT NOT NULL REFERENCES book(id)
 );
