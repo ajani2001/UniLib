@@ -14,6 +14,7 @@ public class Book implements BasicEntry {
     Long id;
     Long edition_id;
     Long point_id;
+    Date issueDate;
     Date acquisitionDate;
     Date decommissionDate;
 }

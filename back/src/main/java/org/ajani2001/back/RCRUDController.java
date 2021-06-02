@@ -1,5 +1,7 @@
 package org.ajani2001.back;
 
+import org.ajani2001.back.exception.BadRequestException;
+import org.ajani2001.back.exception.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 public abstract class RCRUDController<EntryClass extends BasicEntry, EntryRepresentationClass> {
@@ -11,28 +13,32 @@ public abstract class RCRUDController<EntryClass extends BasicEntry, EntryRepres
 
     @PostMapping
     EntryClass create(@RequestBody EntryClass newEntry) {
+        if(newEntry.getId() != null)
+            throw new BadRequestException();
         return repository.save(newEntry);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     Iterable<EntryRepresentationClass> readAll() {
         return repository.getRepresentationAll();
     }
 
     @GetMapping("/{id}")
     EntryRepresentationClass readById(@PathVariable Long id) {
-        return repository.getRepresentationById(id).orElseThrow(RuntimeException::new);
+        return repository.getRepresentationById(id).orElseThrow(NotFoundException::new);
     }
 
-    @PutMapping("/{id}")
-    EntryClass updateById(@RequestBody EntryClass entry, @PathVariable Long id) {
-        if(!entry.getId().equals(id))
-            throw new RuntimeException();
+    @PutMapping
+    EntryClass updateById(@RequestBody EntryClass entry) {
+        if(!repository.existsById(entry.getId()))
+            throw new NotFoundException();
         return repository.save(entry);
     }
 
     @DeleteMapping("/{id}")
     void deleteById(@PathVariable Long id) {
+        if(!repository.existsById(id))
+            throw new NotFoundException();
         repository.deleteById(id);
     }
 }

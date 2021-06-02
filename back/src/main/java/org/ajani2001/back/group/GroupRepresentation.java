@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class GroupRepresentation {
-    private Long id;
-    private Integer number;
-    private String faculty;
+    Long id;
+    Integer number;
+    Integer year;
+    String faculty;
 }

@@ -11,7 +11,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("group_table")
 public class Group implements BasicEntry {
     @Id
-    private Long id;
-    private String number;
-    private Long faculty_id;
+    Long id;
+    String number;
+    Integer year;
+    Long faculty_id;
 }

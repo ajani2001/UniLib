@@ -12,7 +12,7 @@ public interface BookRepository extends RCRUDRepository<Book, BookRepresentation
     @Override
     @Query("SELECT book.id, edition.title AS edition, author.name AS author, " +
             "publishing.name AS publishing, point.name AS point, " +
-            "book.acquisition_date, book.decommission_date " +
+            "book.issue_date, book.acquisition_date, book.decommission_date " +
             "FROM book JOIN edition ON book.edition_id = edition.id " +
             "JOIN author ON edition.author_id = author.id " +
             "JOIN publishing ON edition.publishing_id = publishing.id " +
@@ -22,7 +22,7 @@ public interface BookRepository extends RCRUDRepository<Book, BookRepresentation
     @Override
     @Query("SELECT book.id, edition.title AS edition, author.name AS author, " +
             "publishing.name AS publishing, point.name AS point, " +
-            "book.acquisition_date, book.decommission_date " +
+            "book.issue_date, book.acquisition_date, book.decommission_date " +
             "FROM book JOIN edition ON book.edition_id = edition.id " +
             "JOIN author ON edition.author_id = author.id " +
             "JOIN publishing ON edition.publishing_id = publishing.id " +

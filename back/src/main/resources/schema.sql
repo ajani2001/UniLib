@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS faculty (
 CREATE TABLE IF NOT EXISTS group_table (
     id BIGSERIAL PRIMARY KEY,
     number INTEGER UNIQUE NOT NULL,
+    year INTEGER NOT NULL,
     faculty_id BIGINT NOT NULL REFERENCES faculty(id)
 );
 
@@ -89,6 +90,7 @@ CREATE TABLE IF NOT EXISTS book (
     id BIGSERIAL PRIMARY KEY,
     edition_id BIGINT NOT NULL REFERENCES edition(id),
     point_id BIGINT NOT NULL REFERENCES point(id),
+    issue_date DATE NOT NULL,
     acquisition_date DATE NOT NULL,
     decommission_date DATE,
     CHECK ( decommission_date IS NULL OR acquisition_date < decommission_date )

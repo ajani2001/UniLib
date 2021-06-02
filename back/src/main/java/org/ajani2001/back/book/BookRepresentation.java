@@ -13,6 +13,7 @@ public class BookRepresentation {
     String author;
     String publishing;
     String point;
+    Date issueDate;
     Date acquisitionDate;
     Date decommissionDate;
 }
