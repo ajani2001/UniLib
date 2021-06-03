@@ -1,6 +1,10 @@
 package org.ajani2001.back.reader;
 
 import org.ajani2001.back.CRUDController;
+import org.ajani2001.back.book.BookRepresentation;
+import org.ajani2001.back.borrowing.BorrowingRepresentation;
+import org.ajani2001.back.exception.NotFoundException;
+import org.ajani2001.back.penalty.fine.FineRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +36,30 @@ public class ReaderController extends CRUDController<Reader> {
         Boolean isMaliciousDebtor = params.get("is_malicious_debtor") == null ? null : Boolean.parseBoolean(params.get("is_malicious_debtor"));
         Boolean isBanned = params.get("is_banned") == null ? null : Boolean.parseBoolean(params.get("is_banned"));
         Boolean isBannedForALongTime = params.get("is_banned_for_a_long_time") == null ? null : Boolean.parseBoolean(params.get("is_banned_for_a_long_time"));
-        Date acceptedSince = params.get("accepted_since") == null ? null : Date.valueOf(params.get("accepted_since"));
-        Date retiredSince = params.get("retired_since") == null ? null : Date.valueOf(params.get("retired_since"));
-        return repository.getFiltered(pointId, chairId, facultyId,year,groupId,isStudent,isProfessor,isEmployee,isDebtor,isMaliciousDebtor,isBanned,isBannedForALongTime, acceptedSince., retiredSince);
+        String acceptedSince = params.get("accepted_since") == null ? null : params.get("accepted_since");
+        String retiredSince = params.get("retired_since") == null ? null : params.get("retired_since");
+        return repository.getFiltered(pointId, chairId, facultyId,year,groupId,isStudent,isProfessor,isEmployee,isDebtor,isMaliciousDebtor,isBanned,isBannedForALongTime, acceptedSince, retiredSince);
+    }
+
+    @GetMapping("/{id}/stats")
+    ReaderStats readStats(@PathVariable Long id) {
+        return repository.getStatsById(id).orElseThrow(NotFoundException::new);
+    }
+
+    @GetMapping("/{id}/stats/fines")
+    Iterable<FineRepresentation> readFines(@PathVariable Long id) {
+        return repository.getFinesById(id);
+    }
+
+    @GetMapping("/{id}/stats/lost_books")
+    Iterable<BookRepresentation> readLostBooks(@PathVariable Long id) {
+        return repository.getLostBooksById(id);
+    }
+
+    @GetMapping("/{id}/stats/borrowings")
+    Iterable<BorrowingRepresentation> readBorrowings(@PathVariable Long id, @RequestParam Map<String, String> params) {
+        String sinceDate = params.get("since_date") == null ? null : params.get("since_date");
+        Boolean notReturned = params.get("not_returned") == null ? null : Boolean.parseBoolean(params.get("not_returned"));
+        return repository.getBorrowingsById(id, sinceDate, notReturned);
     }
 }
