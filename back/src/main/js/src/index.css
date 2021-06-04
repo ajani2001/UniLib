@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.list-control-sub {
+  padding: 10px;
+  background-color: aquamarine;
+  display: inline-block;
+}
+
+.text {
+  padding: 10px;
+  background-color: beige;
+  display: inline-block;
+}
+
+.date {
+  padding: 10px;
+  background-color: aliceblue;
+  display: inline-block;
+}
