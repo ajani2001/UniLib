@@ -11,6 +11,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CostCompensationRepresentation extends PenaltyRepresentation {
+    Long book_id;
     String bookTitle;
     Integer bookCost;
 }

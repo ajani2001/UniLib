@@ -9,9 +9,8 @@ import java.util.Optional;
 @Repository
 public interface PointRepository extends RCRUDRepository<Point, PointRepresentation, Long> {
     @Override
-    @Query("SELECT point.id, point.name, point.is_subscription, " +
-            "subq_reader.reader_count, subq_debtor.debtor_count, " +
-            "subq_debt.debt_amount " +
+    @Query("SELECT point.*, subq_reader.reader_count, " +
+            "subq_debtor.debtor_count, subq_debt.debt_amount " +
             "FROM point JOIN " +
             "(SELECT point.id AS point_id, COUNT(reader.id) AS reader_count " +
             "FROM point LEFT JOIN borrowing ON point.id = borrowing.point_id " +
@@ -34,9 +33,8 @@ public interface PointRepository extends RCRUDRepository<Point, PointRepresentat
     Iterable<PointRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT point.id, point.name, point.is_subscription, " +
-            "subq_reader.reader_count, subq_debtor.debtor_count, " +
-            "subq_debt.debt_amount " +
+    @Query("SELECT point.*, subq_reader.reader_count, " +
+            "subq_debtor.debtor_count, subq_debt.debt_amount " +
             "FROM point JOIN " +
             "(SELECT point.id AS point_id, COUNT(reader.id) AS reader_count " +
             "FROM point LEFT JOIN borrowing ON point.id = borrowing.point_id " +

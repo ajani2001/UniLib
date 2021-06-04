@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface ProfessorRepository extends RCRUDRepository<Professor, ProfessorRepresentation, Long> {
     @Override
-    @Query("SELECT reader.id, reader.first_name, reader.last_name, " +
-            "reader.acceptation_date, reader.retirement_date, degree.name AS degree, " +
-            "rank.name AS rank, chair.name AS chair, faculty.name AS faculty " +
+    @Query("SELECT reader.*, professor.degree_id, professor.rank_id, " +
+            "professor.chair_id, degree.name AS degree, rank.name AS rank, " +
+            "chair.name AS chair, faculty.name AS faculty " +
             "FROM reader JOIN professor ON reader.id = professor.reader_id " +
             "JOIN degree ON professor.degree_id = degree.id " +
             "JOIN rank ON professor.rank_id = rank.id " +
@@ -18,9 +18,9 @@ public interface ProfessorRepository extends RCRUDRepository<Professor, Professo
     Iterable<ProfessorRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT reader.id, reader.first_name, reader.last_name, " +
-            "reader.acceptation_date, reader.retirement_date, degree.name AS degree, " +
-            "rank.name AS rank, chair.name AS chair, faculty.name AS faculty " +
+    @Query("SELECT reader.*, professor.degree_id, professor.rank_id, " +
+            "professor.chair_id, degree.name AS degree, rank.name AS rank, " +
+            "chair.name AS chair, faculty.name AS faculty " +
             "FROM reader JOIN professor ON reader.id = professor.reader_id " +
             "JOIN degree ON professor.degree_id = degree.id " +
             "JOIN rank ON professor.rank_id = rank.id " +

@@ -7,16 +7,16 @@ import java.util.Optional;
 
 public interface StudentRepository extends RCRUDRepository<Student, StudentRepresentation, Long> {
     @Override
-    @Query("SELECT reader.id, reader.first_name, reader.last_name, reader.acceptation_date, " +
-            "reader.retirement_date, group_table.number AS group, faculty.name AS faculty " +
+    @Query("SELECT reader.*, group_table.id AS group_id, " +
+            "group_table.number AS group, faculty.name AS faculty " +
             "FROM reader JOIN student ON reader.id = student.reader_id " +
             "JOIN group_table ON student.group_id = group_table.id " +
             "JOIN faculty ON group_table.faculty_id = faculty.id")
     Iterable<StudentRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT reader.id, reader.first_name, reader.last_name, reader.acceptation_date, " +
-            "reader.retirement_date, group_table.number, faculty.name " +
+    @Query("SELECT reader.*, group_table.id AS group_id, " +
+            "group_table.number AS group, faculty.name AS faculty " +
             "FROM reader JOIN student ON reader.id = student.reader_id " +
             "JOIN group_table ON student.group_id = group_table.id " +
             "JOIN faculty ON group_table.faculty_id = faculty.id " +

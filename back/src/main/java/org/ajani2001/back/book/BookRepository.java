@@ -10,9 +10,8 @@ import java.util.Optional;
 public interface BookRepository extends RCRUDRepository<Book, BookRepresentation, Long> {
 
     @Override
-    @Query("SELECT book.id, edition.title AS edition, author.name AS author, " +
-            "publishing.name AS publishing, point.name AS point, " +
-            "book.issue_date, book.acquisition_date, book.decommission_date " +
+    @Query("SELECT book.*, edition.title, author.name AS author, " +
+            "publishing.name AS publishing, point.name AS point " +
             "FROM book JOIN edition ON book.edition_id = edition.id " +
             "JOIN author ON edition.author_id = author.id " +
             "JOIN publishing ON edition.publishing_id = publishing.id " +
@@ -20,9 +19,8 @@ public interface BookRepository extends RCRUDRepository<Book, BookRepresentation
     Iterable<BookRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT book.id, edition.title AS edition, author.name AS author, " +
-            "publishing.name AS publishing, point.name AS point, " +
-            "book.issue_date, book.acquisition_date, book.decommission_date " +
+    @Query("SELECT book.*, edition.title, author.name AS author, " +
+            "publishing.name AS publishing, point.name AS point " +
             "FROM book JOIN edition ON book.edition_id = edition.id " +
             "JOIN author ON edition.author_id = author.id " +
             "JOIN publishing ON edition.publishing_id = publishing.id " +
@@ -30,9 +28,8 @@ public interface BookRepository extends RCRUDRepository<Book, BookRepresentation
             "WHERE book.id = :id")
     Optional<BookRepresentation> getRepresentationById(Long id);
 
-    @Query("SELECT book.id, edition.title AS edition, author.name AS author, " +
-            "publishing.name AS publishing, point.name AS point, " +
-            "book.issue_date, book.acquisition_date, book.decommission_date " +
+    @Query("SELECT book.*, edition.title, author.name AS author, " +
+            "publishing.name AS publishing, point.name AS point " +
             "FROM book JOIN edition ON book.edition_id = edition.id " +
             "JOIN author ON edition.author_id = author.id " +
             "JOIN publishing ON edition.publishing_id = publishing.id " +
@@ -42,13 +39,12 @@ public interface BookRepository extends RCRUDRepository<Book, BookRepresentation
             "(:authorId IS NULL OR :authorId = author.id) AND " +
             "(:issueYear IS NULL OR :issueYear = extract(year from book.issue_date)) AND " +
             "(:supplyYear IS NULL OR :supplyYear = extract(year from book.acquisition_date))")
-    Iterable<BookRepresentation> getFlow(Integer pointId, Integer authorId, Integer issueYear, Integer supplyYear);
+    Iterable<BookRepresentation> getFlow(Long pointId, Long authorId, Integer issueYear, Integer supplyYear);
 
-    @Query("SELECT book.id, edition.title AS edition, author.name AS author, " +
-            "publishing.name AS publishing, point.name AS point, " +
-            "book.issue_date, book.acquisition_date, book.decommission_date " +
+    @Query("SELECT book.*, edition.title, author.name AS author, " +
+            "publishing.name AS publishing, point.name AS point " +
             "FROM book JOIN borrowing ON book.id = borrowing.book_id " +
-            "JOIN order_table ON borrowing.id = order_table.borrowing_id" +
+            "JOIN order_table ON borrowing.id = order_table.borrowing_id " +
             "JOIN edition ON book.edition_id = edition.id " +
             "JOIN author ON edition.author_id = author.id " +
             "JOIN publishing ON edition.publishing_id = publishing.id " +

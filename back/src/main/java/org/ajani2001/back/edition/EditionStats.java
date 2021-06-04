@@ -1,13 +1,13 @@
-package org.ajani2001.back.chair;
+package org.ajani2001.back.edition;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
+
 
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ChairRepresentation extends Chair {
-    String faculty;
+public class EditionStats extends EditionRepresentation {
+    Integer borrowingCount;
 }

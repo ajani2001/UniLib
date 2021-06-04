@@ -21,9 +21,9 @@ public class EditionController extends RCRUDController<Edition, EditionRepresent
     }
 
     @GetMapping("/top20")
-    Iterable<EditionRepresentation> readTop20(@RequestParam Map<String, String> params) {
-        Integer pointId = params.get("point_id") == null ? null : Integer.parseInt(params.get("point_id"));
-        Integer facultyId = params.get("faculty_id") == null ? null : Integer.parseInt(params.get("faculty_id"));
+    Iterable<EditionStats> readTop20(@RequestParam Map<String, String> params) {
+        Long pointId = params.get("point_id") == null ? null : Long.parseLong(params.get("point_id"));
+        Long facultyId = params.get("faculty_id") == null ? null : Long.parseLong(params.get("faculty_id"));
         return repository.getTop20(pointId, facultyId);
     }
 }

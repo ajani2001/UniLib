@@ -10,8 +10,8 @@ import java.util.Optional;
 public interface PropertyCompensationRepository extends RCRUDRepository<PropertyCompensation, PropertyCompensationRepresentation, Long> {
 
     @Override
-    @Query("SELECT penalty.id, reader.first_name AS reader_first_name, " +
-            "reader.last_name AS reader_last_name, penalty.date, " +
+    @Query("SELECT penalty.*, reader.first_name AS reader_first_name, reader.last_name AS reader_last_name, " +
+            "edition_old.id AS old_book_id, edition_new.id AS new_book_id, " +
             "edition_old.title AS old_book_title, edition_new.title AS new_book_title " +
             "FROM property_compensation JOIN penalty ON property_compensation.penalty_id = penalty.id " +
             "JOIN reader ON penalty.reader_id = reader.id " +
@@ -22,8 +22,8 @@ public interface PropertyCompensationRepository extends RCRUDRepository<Property
     public Iterable<PropertyCompensationRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT penalty.id, reader.first_name AS reader_first_name, " +
-            "reader.last_name AS reader_last_name, penalty.date, " +
+    @Query("SELECT penalty.*, reader.first_name AS reader_first_name, reader.last_name AS reader_last_name, " +
+            "edition_old.id AS old_book_id, edition_new.id AS new_book_id, " +
             "edition_old.title AS old_book_title, edition_new.title AS new_book_title " +
             "FROM property_compensation JOIN penalty ON property_compensation.penalty_id = penalty.id " +
             "JOIN reader ON penalty.reader_id = reader.id " +

@@ -10,6 +10,9 @@ import org.ajani2001.back.reader.Reader;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProfessorRepresentation extends Reader {
+    Long degree_id;
+    Long rank_id;
+    Long chair_id;
     String degree;
     String rank;
     String chair;

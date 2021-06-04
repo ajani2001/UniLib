@@ -2,12 +2,14 @@ package org.ajani2001.back.edition;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.ajani2001.back.BasicEntry;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Edition implements BasicEntry {
     @Id
     Long id;

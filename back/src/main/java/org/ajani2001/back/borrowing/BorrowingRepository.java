@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface BorrowingRepository extends RCRUDRepository<Borrowing, BorrowingRepresentation, Long> {
     @Override
-    @Query("SELECT borrowing.id, reader.first_name AS reader_first_name, " +
-            "reader.last_name AS reader_last_name, edition.title AS title, " +
-            "point.name AS point, borrowing.begin_date, borrowing.end_date, borrowing.until_date " +
+    @Query("SELECT borrowing.*, reader.first_name AS reader_first_name, " +
+            "reader.last_name AS reader_last_name, " +
+            "edition.title AS title, point.name AS point " +
             "FROM borrowing JOIN reader ON borrowing.reader_id = reader.id " +
             "JOIN book ON borrowing.book_id = book.id " +
             "JOIN edition ON book.edition_id = edition.id " +
@@ -17,9 +17,9 @@ public interface BorrowingRepository extends RCRUDRepository<Borrowing, Borrowin
     Iterable<BorrowingRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT borrowing.id, reader.first_name AS reader_first_name, " +
-            "reader.last_name AS reader_last_name, edition.title AS title, " +
-            "point.name AS point, borrowing.begin_date, borrowing.end_date, borrowing.until_date " +
+    @Query("SELECT borrowing.*, reader.first_name AS reader_first_name, " +
+            "reader.last_name AS reader_last_name, " +
+            "edition.title AS title, point.name AS point " +
             "FROM borrowing JOIN reader ON borrowing.reader_id = reader.id " +
             "JOIN book ON borrowing.book_id = book.id " +
             "JOIN edition ON book.edition_id = edition.id " +

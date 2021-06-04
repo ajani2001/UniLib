@@ -1,8 +1,8 @@
-import AuthorList from "./AuthorList";
+import Test from "./test";
 
 function App() {
   return (
-      <AuthorList />
+      <Test />
   );
 }
 

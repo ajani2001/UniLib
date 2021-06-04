@@ -24,11 +24,11 @@ public class ReaderController extends CRUDController<Reader> {
 
     @GetMapping("/filter")
     Iterable<Reader> readFiltered(@RequestParam Map<String, String> params) {
-        Integer pointId = params.get("point_id") == null ? null : Integer.parseInt(params.get("point_id"));
-        Integer chairId = params.get("chair_id") == null ? null : Integer.parseInt(params.get("chair_id"));
-        Integer facultyId = params.get("faculty_id") == null ? null : Integer.parseInt(params.get("faculty_id"));
+        Long pointId = params.get("point_id") == null ? null : Long.parseLong(params.get("point_id"));
+        Long chairId = params.get("chair_id") == null ? null : Long.parseLong(params.get("chair_id"));
+        Long facultyId = params.get("faculty_id") == null ? null : Long.parseLong(params.get("faculty_id"));
         Integer year = params.get("year") == null ? null : Integer.parseInt(params.get("year"));
-        Integer groupId = params.get("group_id") == null ? null : Integer.parseInt(params.get("group_id"));
+        Long groupId = params.get("group_id") == null ? null : Long.parseLong(params.get("group_id"));
         Boolean isStudent = params.get("category") == null ? null : params.get("category").equals("student");
         Boolean isProfessor = params.get("category") == null ? null : params.get("category").equals("professor");
         Boolean isEmployee = params.get("category") == null ? null : params.get("category").equals("employee");
@@ -38,7 +38,8 @@ public class ReaderController extends CRUDController<Reader> {
         Boolean isBannedForALongTime = params.get("is_banned_for_a_long_time") == null ? null : Boolean.parseBoolean(params.get("is_banned_for_a_long_time"));
         String acceptedSince = params.get("accepted_since") == null ? null : params.get("accepted_since");
         String retiredSince = params.get("retired_since") == null ? null : params.get("retired_since");
-        return repository.getFiltered(pointId, chairId, facultyId,year,groupId,isStudent,isProfessor,isEmployee,isDebtor,isMaliciousDebtor,isBanned,isBannedForALongTime, acceptedSince, retiredSince);
+        return repository.getFiltered(pointId, chairId, facultyId, year, groupId, isStudent, isProfessor, isEmployee,
+                isDebtor, isMaliciousDebtor, isBanned, isBannedForALongTime, acceptedSince, retiredSince);
     }
 
     @GetMapping("/{id}/stats")

@@ -10,6 +10,7 @@ import org.ajani2001.back.reader.Reader;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class StudentRepresentation extends Reader {
+    Long groupId;
     Integer group;
     String faculty;
 }

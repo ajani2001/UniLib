@@ -10,17 +10,17 @@ import java.util.Optional;
 public interface BanRepository extends RCRUDRepository<Ban, BanRepresentation, Long> {
 
     @Override
-    @Query("SELECT penalty.id, reader.first_name AS reader_first_name, " +
-            "reader.last_name AS reader_last_name, penalty.date, ban.end_date " +
+    @Query("SELECT penalty.*, reader.first_name AS reader_first_name, " +
+            "reader.last_name AS reader_last_name, ban.end_date " +
             "FROM ban JOIN penalty ON ban.penalty_id = penalty.id " +
             "JOIN reader ON penalty.reader_id = reader.id")
     public Iterable<BanRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT penalty.id, reader.first_name AS reader_first_name, " +
-            "reader.last_name AS reader_last_name, penalty.date, ban.end_date " +
+    @Query("SELECT penalty.*, reader.first_name AS reader_first_name, " +
+            "reader.last_name AS reader_last_name, ban.end_date " +
             "FROM ban JOIN penalty ON ban.penalty_id = penalty.id " +
-            "JOIN reader ON penalty.reader_id = reader.id" +
+            "JOIN reader ON penalty.reader_id = reader.id " +
             "WHERE ban.penalty_id = :id")
     public Optional<BanRepresentation> getRepresentationById(Long id);
 }

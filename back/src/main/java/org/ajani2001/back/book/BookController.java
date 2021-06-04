@@ -22,8 +22,8 @@ public class BookController extends RCRUDController<Book, BookRepresentation> {
 
     @GetMapping("/flow")
     Iterable<BookRepresentation> readFlow(@RequestParam Map<String, String> params) {
-        Integer pointId = params.get("point_id") == null ? null : Integer.parseInt(params.get("point_id"));
-        Integer authorId = params.get("author_id") == null ? null : Integer.parseInt(params.get("author_id"));
+        Long pointId = params.get("point_id") == null ? null : Long.parseLong(params.get("point_id"));
+        Long authorId = params.get("author_id") == null ? null : Long.parseLong(params.get("author_id"));
         Integer issueYear = params.get("issue_year") == null ? null : Integer.parseInt(params.get("issue_year"));
         Integer supplyYear = params.get("supply_year") == null ? null : Integer.parseInt(params.get("supply_year"));
         return repository.getFlow(pointId, authorId, issueYear, supplyYear);

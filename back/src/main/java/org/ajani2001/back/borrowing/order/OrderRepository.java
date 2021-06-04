@@ -8,10 +8,9 @@ import java.util.Optional;
 
 public interface OrderRepository extends RCRUDRepository<Order, OrderRepresentation, Long> {
     @Override
-    @Query("SELECT borrowing.id, reader.first_name AS reader_first_name, " +
+    @Query("SELECT borrowing.*, reader.first_name AS reader_first_name, " +
             "reader.last_name AS reader_last_name, edition.title AS title, " +
-            "point.name AS point, borrowing.begin_date, borrowing.end_date, " +
-            "borrowing.until_date, order_table.supply_date " +
+            "point.name AS point, order_table.supply_date " +
             "FROM order_table JOIN borrowing ON order_table.borrowing_id = borrowing.id " +
             "JOIN reader ON borrowing.reader_id = reader.id " +
             "JOIN book ON borrowing.book_id = book.id " +
@@ -20,10 +19,9 @@ public interface OrderRepository extends RCRUDRepository<Order, OrderRepresentat
     Iterable<OrderRepresentation> getRepresentationAll();
 
     @Override
-    @Query("SELECT borrowing.id, reader.first_name AS reader_first_name, " +
+    @Query("SELECT borrowing.*, reader.first_name AS reader_first_name, " +
             "reader.last_name AS reader_last_name, edition.title AS title, " +
-            "point.name AS point, borrowing.begin_date, borrowing.end_date, " +
-            "borrowing.until_date, order_table.supply_date " +
+            "point.name AS point, order_table.supply_date " +
             "FROM order_table JOIN borrowing ON order_table.borrowing_id = borrowing.id " +
             "JOIN reader ON borrowing.reader_id = reader.id " +
             "JOIN book ON borrowing.book_id = book.id " +

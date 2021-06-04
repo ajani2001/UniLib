@@ -2,6 +2,7 @@ package org.ajani2001.back.penalty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
@@ -9,9 +10,8 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PenaltyRepresentation {
-    Long id;
+@EqualsAndHashCode(callSuper = true)
+public class PenaltyRepresentation extends Penalty {
     String readerFirstName;
     String readerLastName;
-    Date date;
 }
