@@ -596,7 +596,7 @@ const config = {
             fieldName: "lastName",
             fieldType: "String"
         }, {
-            label: "Acceptation Name",
+            label: "Acceptation Date",
             fieldName: "acceptationDate",
             fieldType: "Date"
         }, {

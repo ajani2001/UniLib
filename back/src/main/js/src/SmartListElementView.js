@@ -26,8 +26,8 @@ class SmartListElementView extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!prevState.sentDelete && this.state.sentDelete) {
-            Helper.fetchJson(this.props.config.controllerAddress + this.props.data.id, {method: 'DELETE'})
-                .then(response => this.props.onDelete(this.props.data),
+            Helper.fetchText(this.props.config.controllerAddress + this.props.data.id, {method: 'DELETE'})
+                .then(response => this.props.onDelete(this.props.data.id),
                     error => {
                         alert(error.message);
                         this.setState({sentDelete: false});

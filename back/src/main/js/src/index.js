@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Test from "./test";
 import 'react-calendar/dist/Calendar.css';
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Test />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
