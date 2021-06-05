@@ -12,10 +12,11 @@ public abstract class RCRUDController<EntryClass extends BasicEntry, EntryRepres
     }
 
     @PostMapping
-    EntryClass create(@RequestBody EntryClass newEntry) {
+    EntryRepresentationClass create(@RequestBody EntryClass newEntry) {
         if(newEntry.getId() != null)
             throw new BadRequestException();
-        return repository.save(newEntry);
+        EntryClass savedEntry = repository.save(newEntry);
+        return repository.getRepresentationById(savedEntry.getId()).get();
     }
 
     @GetMapping("/all")
@@ -29,10 +30,11 @@ public abstract class RCRUDController<EntryClass extends BasicEntry, EntryRepres
     }
 
     @PutMapping
-    EntryClass updateById(@RequestBody EntryClass entry) {
+    EntryRepresentationClass updateById(@RequestBody EntryClass entry) {
         if(!repository.existsById(entry.getId()))
             throw new NotFoundException();
-        return repository.save(entry);
+        EntryClass savedEntry = repository.save(entry);
+        return repository.getRepresentationById(savedEntry.getId()).get();
     }
 
     @DeleteMapping("/{id}")

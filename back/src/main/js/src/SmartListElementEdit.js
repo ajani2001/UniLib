@@ -2,26 +2,40 @@ import React from "react";
 import SmartTextInput from "./SmartTextInput";
 import SmartDateInput from "./SmartDateInput";
 import Helper from "./Helper";
+import SmartForeignKeyInput from "./SmartForeignKeyInput";
+import SmartNumberInput from "./SmartNumberInput";
+import config from "./Config";
 
 class SmartListElementEdit extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { sent: false };
-        this.state.id = props.data.id ? props.data.id : null;
+        this.state = {
+            sent: false,
+            unloaded: 0,
+            id: props.data.id !== undefined ? props.data.id : null
+        };
+
+        this.foreignEntities = {};
+
         for (const entityFieldConfig of props.config.entityFields) {
             this.state[entityFieldConfig.fieldName] = props.data[entityFieldConfig.fieldName] ? props.data[entityFieldConfig.fieldName] : null;
+            if (entityFieldConfig.fieldType === "Key" && this.foreignEntities[config[entityFieldConfig.configName].controllerAddress] === undefined) {
+                this.state.unloaded += 1;
+                this.foreignEntities[config[entityFieldConfig.configName].controllerAddress] = null;
+            }
         }
     }
 
-    resolveInputClass = (type) => {
-        switch (type) {
-            case "String":
-                return SmartTextInput;
-            case "Date":
-                return SmartDateInput;
-            default:
-                return null;
+    componentDidMount() {
+        for (const foreignEntitiesKey in this.foreignEntities) {
+            Helper.fetchJson(foreignEntitiesKey + "all").then(json => {
+                this.foreignEntities[foreignEntitiesKey] = json;
+                this.setState((prevState, props) => ({unloaded: prevState.unloaded - 1}));
+            }, error => {
+                alert(error.message);
+                this.setState((prevState, props) => ({unloaded: prevState.unloaded - 1}));
+            });
         }
     }
 
@@ -73,7 +87,7 @@ class SmartListElementEdit extends React.Component {
     }
 
     render() {
-        if (this.state.sent) {
+        if (this.state.sent || this.state.unloaded !== 0) {
             return (<div className={this.props.config.className}>
                 <label>Loading...</label>
             </div>);
@@ -81,11 +95,22 @@ class SmartListElementEdit extends React.Component {
             return (
                 <div className={this.props.config.className}>
                     {this.props.config.entityFields.map((entityFieldConfig, index) => {
-                        const InputComponent = this.resolveInputClass(entityFieldConfig.fieldType);
-                        return (
-                            <InputComponent key={index} value={this.state[entityFieldConfig.fieldName]}
-                                            onChange={this.onChangeCallback} config={entityFieldConfig}/>
-                        );
+                        if(entityFieldConfig.fieldType === "String") {
+                            return <SmartTextInput key={index} value={this.state[entityFieldConfig.fieldName]}
+                                                   onChange={this.onChangeCallback} config={entityFieldConfig} />;
+                        } else if(entityFieldConfig.fieldType === "Date") {
+                            return <SmartDateInput key={index} value={this.state[entityFieldConfig.fieldName]}
+                                                   onChange={this.onChangeCallback} config={entityFieldConfig} />;
+                        } else if(entityFieldConfig.fieldType === "Number") {
+                            return <SmartNumberInput key={index} value={this.state[entityFieldConfig.fieldName]}
+                                                   onChange={this.onChangeCallback} config={entityFieldConfig} />;
+                        } else if(entityFieldConfig.fieldType === "Key") {
+                            return <SmartForeignKeyInput key={index} value={this.state[entityFieldConfig.fieldName]}
+                                                   onChange={this.onChangeCallback} config={entityFieldConfig}
+                                                   pickedEntities={this.foreignEntities[config[entityFieldConfig.configName].controllerAddress].map(entity=>({id: entity.id, verbosed: JSON.stringify(entity)}))} />;
+                        } else {
+                            return <label>type is not supported</label>
+                        }
                     })}
                     <button onClick={this.onSaveButtonClick}>Save</button>
                     <button onClick={this.props.onCancel}>Cancel</button>

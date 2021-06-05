@@ -2,6 +2,7 @@ import React from "react";
 import SmartTextView from "./SmartTextView";
 import SmartDateView from "./SmartDateView";
 import Helper from "./Helper";
+import SmartBooleanView from "./SmartBooleanView";
 
 class SmartListElementView extends React.Component {
     constructor(props) {
@@ -10,17 +11,6 @@ class SmartListElementView extends React.Component {
         this.state = {
             sendDelete: false
         };
-    }
-
-    resolveViewClass = (type) => {
-        switch (type) {
-            case "String":
-                return SmartTextView;
-            case "Date":
-                return SmartDateView;
-            default:
-                return null;
-        }
     }
 
     onDeleteButtonClick = () => {
@@ -51,19 +41,28 @@ class SmartListElementView extends React.Component {
                 <label>Loading...</label>
             </div>);
         } else {
-            return (
-                <div className={this.props.config.className}>
-                    {this.props.config.representationFields.map((viewFieldConfig, index) => {
-                        const ViewComponent = this.resolveViewClass(viewFieldConfig.fieldType);
-                        return (
-                            <ViewComponent key={index} value={this.props.data[viewFieldConfig.fieldName]}
-                                            config={viewFieldConfig}/>
-                        );
-                    })}
-                    <button onClick={this.props.onEdit}>Edit</button>
-                    <button onClick={this.onDeleteButtonClick}>Delete</button>
-                </div>
-            );
+            if(this.props.data.id === null || this.props.data.id === undefined) {
+                return <button onClick={this.props.onEdit}>Create</button>;
+            } else {
+                return (
+                    <div className={this.props.config.className}>
+                        {this.props.config.representationFields.map((viewFieldConfig, index) => {
+                            if (viewFieldConfig.fieldType === "Date") {
+                                return <SmartDateView key={index} value={this.props.data[viewFieldConfig.fieldName]}
+                                                      config={viewFieldConfig}/>
+                            } else if (viewFieldConfig.fieldType === "Boolean") {
+                                return <SmartBooleanView key={index} value={this.props.data[viewFieldConfig.fieldName]}
+                                                         config={viewFieldConfig}/>
+                            } else {
+                                return <SmartTextView key={index} value={this.props.data[viewFieldConfig.fieldName]}
+                                                      config={viewFieldConfig}/>
+                            }
+                        })}
+                        <button onClick={this.props.onEdit}>Edit</button>
+                        <button onClick={this.onDeleteButtonClick}>Delete</button>
+                    </div>
+                );
+            }
         }
     }
 }

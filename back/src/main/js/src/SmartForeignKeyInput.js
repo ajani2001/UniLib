@@ -3,20 +3,20 @@ import React from "react";
 class SmartForeignKeyInput extends React.Component {
     render() {
         return (
-            this.props.value == null ?
-                <div className="key-input">
-                    <h2>{this.props.config.label}</h2>
-                    <button
-                        onClick={() => this.props.onChange(this.props.config.fieldName, this.props.config.label)}>Add
-                    </button>
-                </div> :
-                <div className="key-input">
-                    <h2>{this.props.config.label}</h2>
-                    <input type="text" value={this.props.value}
-                           onChange={(event) => this.props.onChange(this.props.config.fieldName, event.target.value)}/>
-                    {this.props.config.nullable ? <button
-                        onClick={() => this.props.onChange(this.props.config.fieldName, null)}>Remove</button> : ""}
-                </div>
+            <div className="key-input">
+                <h2>{this.props.config.label}</h2>
+                <select value={this.props.value}
+                        onChange={(event) =>
+                            isNaN(Number.parseInt(event.target.value)) ?
+                                this.props.onChange(this.props.config.fieldName, null) :
+                                this.props.onChange(this.props.config.fieldName, Number.parseInt(event.target.value)
+                                )}>
+                    <option value="null">--</option>
+                    {this.props.pickedEntities.map((entity, index) => (
+                        <option key={index} value={entity.id}>{entity.verbosed}</option>
+                    ))}
+                </select>
+            </div>
         );
     }
 }

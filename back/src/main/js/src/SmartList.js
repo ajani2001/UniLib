@@ -59,6 +59,9 @@ class SmartList extends React.Component {
                                                                                                      onDelete={this.props.onDelete}/>)}
                 {this.state.showPositions < filteredAndSorted.length ?
                     <button onClick={this.onMoreButtonClick}>More</button> : ""}
+                <SmartListElement data={{}} config={this.props.config}
+                                  onSave={this.props.onSave}
+                                  onDelete={this.props.onDelete} />
             </div>
         );
     }

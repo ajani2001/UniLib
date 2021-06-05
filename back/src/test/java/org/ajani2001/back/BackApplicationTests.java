@@ -1,13 +1,13 @@
-package org.ajani2001.back;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class BackApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package org.ajani2001.back;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class BackApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
