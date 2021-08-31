@@ -1,10 +1,10 @@
 import React from "react";
-import SmartTextInput from "./SmartTextInput";
-import SmartDateInput from "./SmartDateInput";
-import Helper from "./Helper";
-import SmartForeignKeyInput from "./SmartForeignKeyInput";
-import SmartNumberInput from "./SmartNumberInput";
-import config from "./Config";
+import SmartTextInput from "./input_component/SmartTextInput";
+import SmartDateInput from "./input_component/SmartDateInput";
+import Helper from "../Helper";
+import SmartForeignKeyInput from "./input_component/SmartForeignKeyInput";
+import SmartNumberInput from "./input_component/SmartNumberInput";
+import config from "../Config";
 
 class SmartListElementEdit extends React.Component {
     constructor(props) {

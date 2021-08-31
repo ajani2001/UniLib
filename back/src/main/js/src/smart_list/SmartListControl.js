@@ -1,7 +1,7 @@
 import React from "react";
-import SmartTextInput from "./SmartTextInput";
-import SmartDateInput from "./SmartDateInput";
-import SmartNumberInput from "./SmartNumberInput";
+import SmartTextInput from "./input_component/SmartTextInput";
+import SmartDateInput from "./input_component/SmartDateInput";
+import SmartNumberInput from "./input_component/SmartNumberInput";
 
 class SmartListControl extends React.Component {
     constructor(props) {

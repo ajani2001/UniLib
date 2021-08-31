@@ -1,8 +1,8 @@
 import React from "react";
-import SmartTextView from "./SmartTextView";
-import SmartDateView from "./SmartDateView";
-import Helper from "./Helper";
-import SmartBooleanView from "./SmartBooleanView";
+import SmartTextView from "./view_component/SmartTextView";
+import SmartDateView from "./view_component/SmartDateView";
+import Helper from "../Helper";
+import SmartBooleanView from "./view_component/SmartBooleanView";
 
 class SmartListElementView extends React.Component {
     constructor(props) {

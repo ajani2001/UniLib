@@ -1,7 +1,7 @@
 import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import Helper from "./Helper";
+import Helper from "../../Helper";
 
 class SmartDateInput extends React.Component {
     render() {

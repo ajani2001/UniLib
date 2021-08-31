@@ -17,7 +17,7 @@ class App extends React.Component {
           <select value={this.state.currentKey} onChange={(event)=>this.setState({currentKey: event.target.value})} >
               {Object.keys(config).map((key, index)=><option value={key}>{key}</option>)}
           </select>
-          <CRUDForm config={config[this.state.currentKey]} />
+          <CRUDForm config={config[this.state.currentKey]} key={this.state.currentKey} />
         </div>
     );
   }

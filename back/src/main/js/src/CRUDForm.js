@@ -1,6 +1,6 @@
 import React from "react";
 import Helper from "./Helper";
-import SmartList from "./SmartList";
+import SmartList from "./smart_list/SmartList";
 
 class CRUDForm extends React.Component {
     constructor(props) {
@@ -10,19 +10,6 @@ class CRUDForm extends React.Component {
 
     componentDidMount() {
         Helper.fetchJson(this.props.config.controllerAddress + "all").then(json=>this.setState({loaded: true, data: json}), error=>alert(error.message));
-    }
-
-    static getDerivedStateFromProps(props, state){
-        if(props.config !== state.prevConfig) {
-            Helper.fetchJson(props.config.controllerAddress + "all").then(json=>this.setState({loaded: true, data: json}), error=>alert(error.message));
-            return {prevConfig: props.config, loaded: false, data:[]}
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevState.loaded === true && this.state.loaded === false) {
-            Helper.fetchJson(this.props.config.controllerAddress + "all").then(json=>this.setState({loaded: true, data: json}), error=>alert(error.message));
-        }
     }
 
     onSave = (newEntry) => {
